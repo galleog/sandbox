@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-idea'
+apply plugin: 'propdeps-eclipse'
+
+ext {
+    springVersion = '4.2.1.RELEASE'
+    springDataJpaVersion = '1.9.0.RELEASE'
+    aspectjVersion = '1.7.4'
+    commonsLangVersion = '3.4'
+    lombokVersion = '1.16.6'
+    hibernateVersion = '5.1.0.Final'
+    testngVersion = '6.8.21'
+    mockitoVersion = '1.10.19'
+    hamcrestVersion = '1.3'
+}
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+[compileJava, compileTestJava]*.options.collect { options ->
+    options.encoding = 'UTF-8'
+    options.compilerArgs = ['-Xlint:none']
+}
+
+repositories {
+    jcenter()
+}
+
+configurations {
+    ajc
+}
+
+dependencies {
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
+    compile "org.apache.commons:commons-lang3:$commonsLangVersion"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    compile "org.aspectj:aspectjrt:$aspectjVersion"
+    compile "org.aspectj:aspectjweaver:$aspectjVersion"
+
+    provided "org.projectlombok:lombok:$lombokVersion"
+
+    testCompile "org.testng:testng:$testngVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+
+    ajc "org.aspectj:aspectjtools:$aspectjVersion"
+}
+
+test {
+    useTestNG()
+}
+
+ext.aspectj = { destDir, aspectPath, inpath, classpath ->
+    ant.taskdef(resource: "org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties",
+            classpath: configurations.ajc.asPath)
+
+    ant.iajc(
+            maxmem: "1024m", fork: "true", Xlint: "ignore",
+            destDir: destDir,
+            aspectPath: aspectPath,
+            inpath: inpath,
+            classpath: classpath,
+            source: project.sourceCompatibility,
+            target: project.targetCompatibility
+    )
+}
+
+compileJava {
+    doLast {
+        aspectj project.sourceSets.main.output.classesDir.absolutePath,
+                null,
+                project.sourceSets.main.output.classesDir.absolutePath,
+                project.sourceSets.main.runtimeClasspath.asPath
+    }
+}
+
+compileTestJava {
+    dependsOn jar
+
+    doLast {
+        aspectj project.sourceSets.test.output.classesDir.absolutePath,
+                jar.archivePath,
+                project.sourceSets.test.output.classesDir.absolutePath,
+                project.sourceSets.test.runtimeClasspath.asPath
+    }
+}
