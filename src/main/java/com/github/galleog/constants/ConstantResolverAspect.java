@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * Aspect to resolve automatically {@code public static final} fields from the database.
+ * Aspect to resolve {@code public static final} fields from the database automatically.
  *
  * @author Oleg Galkin
  */
@@ -26,23 +26,23 @@ public class ConstantResolverAspect {
     }
 
     /**
-     * Matches references of any {@code public static final} field with an annotation {@link ResolveConstant}.
+     * Matches references to any {@code public static final} field annotated with {@link ResolveConstant}.
      */
     @Pointcut("get(@com.github.galleog.constants.ResolveConstant public static final * *.*)")
     void getPublicStaticFinalResolveConstantField() {
     }
 
     /**
-     * Matches references of any {@code public static final} field belonging to a class with an annotation {@link
-     * ResolveConstant}.
+     * Matches references to any {@code public static final} field belonging to a class
+     * annotated with {@link ResolveConstant}.
      */
     @Pointcut("get(public static final * (@com.github.galleog.constants.ResolveConstant *).*)")
     void getAnyPublicStaticFinalFieldOfResolveContstantType() {
     }
 
     /**
-     * Matches a call of {@code Field#get(Object)} for any {@code public static final} field with
-     * an annotation {@link ResolveConstant}.
+     * Matches a call of {@code Field#get(Object)} for any {@code public static final} field
+     * annotated with {@link ResolveConstant}.
      */
     @Pointcut("call(public Object java.lang.reflect.Field.get(Object)) && target(field) && if()")
     public static boolean getField(Field field) {
@@ -53,7 +53,7 @@ public class ConstantResolverAspect {
     }
 
     /**
-     * Resolves a field referenced directly.
+     * Resolves a directly referenced field.
      */
     @Around("getPublicStaticFinalResolveConstantField() || getAnyPublicStaticFinalFieldOfResolveContstantType()")
     public Object resolveDirectConstant(JoinPoint thisJointPoint) {

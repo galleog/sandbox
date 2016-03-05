@@ -25,13 +25,13 @@ import static org.mockito.Mockito.when;
  */
 @Test
 public class ConstantResolverAspectTests {
-    private static final String STATE_1 = "STATE_1";
-    private static final String STATE_2 = "STATE_2";
-    private static final String STATE_3 = "STATE_3";
-    private static final String STATE_4 = "STATE_4";
-    private static final String STATE_5 = "STATE_5";
-    private static final String STATE_6 = "STATE_6";
-    private static final String STATE_7 = "STATE_7";
+    private static final String ALGERIA = "ALGERIA";
+    private static final String BAHRAIN = "BAHRAIN";
+    private static final String CANADA = "CANADA";
+    private static final String DENMARK = "DENMARK";
+    private static final String ECUADOR = "ECUADOR";
+    private static final String FRANCE = "FRANCE";
+    private static final String GERMANY = "GERMANY";
 
     @Mock
     private FieldResolver resolver;
@@ -44,58 +44,58 @@ public class ConstantResolverAspectTests {
     }
 
     /**
-     * Тест применения аспекта.
+     * Verifies that the aspect is applied correctly.
      */
     public void testAspectWeaving() throws Exception {
         when(resolver.resolve(any(Field.class))).thenAnswer(new Answer<Persistable<?>>() {
             @Override
             public Persistable<?> answer(InvocationOnMock invocation) throws Throwable {
                 Field field = (Field) invocation.getArguments()[0];
-                State state = (State) field.get(null);
-                state.setName(field.getName());
-                return state;
+                Country country = (Country) field.get(null);
+                country.setName(field.getName());
+                return country;
             }
         });
 
-        assertThat(ResolveConstantType.STATE_1.getName(), is(STATE_1));
-        assertThat(((State) ReflectionUtils.findField(ResolveConstantType.class, STATE_1).get(null)).getName(),
-                is(STATE_1));
-        assertThat(ResolveConstantType.STATE_2.getName(), is(STATE_2));
-        assertThat(((State) ReflectionUtils.findField(ResolveConstantType.class, STATE_2).get(null)).getName(),
-                is(STATE_2));
-        assertThat(SuperclassOfResolveConstantType.STATE_3.getName(), is(STATE_3));
-        assertThat(((State) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, STATE_3).get(null))
-                .getName(), is(STATE_3));
-        assertThat(SuperclassOfResolveConstantType.STATE_4.getName(), is(STATE_4));
-        assertThat(((State) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, STATE_4).get(null))
-                .getName(), is(STATE_4));
-        assertThat(NotResolveConstantType.STATE_5.getName(), is(STATE_5));
-        assertThat(((State) ReflectionUtils.findField(NotResolveConstantType.class, STATE_5).get(null)).getName(),
-                is(STATE_5));
-        assertThat(NotResolveConstantType.STATE_6.getName(), is(STATE_6));
-        assertThat(((State) ReflectionUtils.findField(NotResolveConstantType.class, STATE_6).get(null)).getName(),
-                is(STATE_6));
-        assertThat(NotResolveConstantType.STATE_7.getName(), nullValue());
-        assertThat(((State) ReflectionUtils.findField(NotResolveConstantType.class, STATE_7).get(null)).getName(),
+        assertThat(ResolveConstantType.ALGERIA.getName(), is(ALGERIA));
+        assertThat(((Country) ReflectionUtils.findField(ResolveConstantType.class, ALGERIA).get(null)).getName(),
+                is(ALGERIA));
+        assertThat(ResolveConstantType.BAHRAIN.getName(), is(BAHRAIN));
+        assertThat(((Country) ReflectionUtils.findField(ResolveConstantType.class, BAHRAIN).get(null)).getName(),
+                is(BAHRAIN));
+        assertThat(SuperclassOfResolveConstantType.CANADA.getName(), is(CANADA));
+        assertThat(((Country) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, CANADA).get(null))
+                .getName(), is(CANADA));
+        assertThat(SuperclassOfResolveConstantType.DENMARK.getName(), is(DENMARK));
+        assertThat(((Country) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, DENMARK).get(null))
+                .getName(), is(DENMARK));
+        assertThat(NotResolveConstantType.ECUADOR.getName(), is(ECUADOR));
+        assertThat(((Country) ReflectionUtils.findField(NotResolveConstantType.class, ECUADOR).get(null)).getName(),
+                is(ECUADOR));
+        assertThat(NotResolveConstantType.FRANCE.getName(), is(FRANCE));
+        assertThat(((Country) ReflectionUtils.findField(NotResolveConstantType.class, FRANCE).get(null)).getName(),
+                is(FRANCE));
+        assertThat(NotResolveConstantType.GERMANY.getName(), nullValue());
+        assertThat(((Country) ReflectionUtils.findField(NotResolveConstantType.class, GERMANY).get(null)).getName(),
                 nullValue());
     }
 
     @ResolveConstant
     public static class ResolveConstantType {
-        public static final State STATE_1 = new State(1);
-        public static final State STATE_2 = new State(2);
+        public static final Country ALGERIA = new Country("DZ");
+        public static final Country BAHRAIN = new Country("BH");
     }
 
     public static class SuperclassOfResolveConstantType extends ResolveConstantType {
-        public static final State STATE_3 = new State(3);
-        public static final State STATE_4 = new State(4);
+        public static final Country CANADA = new Country("CA");
+        public static final Country DENMARK = new Country("DK");
     }
 
     public static class NotResolveConstantType {
         @ResolveConstant
-        public final static State STATE_5 = new State(5);
+        public final static Country ECUADOR = new Country("EC");
         @ResolveConstant
-        public final static State STATE_6 = new State(6);
-        public final static State STATE_7 = new State(7);
+        public final static Country FRANCE = new Country("FR");
+        public final static Country GERMANY = new Country("DE");
     }
 }

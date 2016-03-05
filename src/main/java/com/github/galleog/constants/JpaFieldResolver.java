@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * Implementation of {@link FieldResolver} for {@code public static final} fields.
+ * Implementation of {@link FieldResolver} based on JPA.
  *
  * @author Oleg Galkin
  */
