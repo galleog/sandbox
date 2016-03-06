@@ -57,17 +57,15 @@ public class ConstantResolverAspectTests {
             }
         });
 
-        assertThat(ResolveConstantType.ALGERIA.getName(), is(ALGERIA));
-        assertThat(((Country) ReflectionUtils.findField(ResolveConstantType.class, ALGERIA).get(null)).getName(),
-                is(ALGERIA));
-        assertThat(ResolveConstantType.BAHRAIN.getName(), is(BAHRAIN));
-        assertThat(((Country) ReflectionUtils.findField(ResolveConstantType.class, BAHRAIN).get(null)).getName(),
-                is(BAHRAIN));
-        assertThat(SuperclassOfResolveConstantType.CANADA.getName(), is(CANADA));
-        assertThat(((Country) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, CANADA).get(null))
+        assertThat(Country.ALGERIA.getName(), is(ALGERIA));
+        assertThat(((Country) ReflectionUtils.findField(Country.class, ALGERIA).get(null)).getName(), is(ALGERIA));
+        assertThat(Country.BAHRAIN.getName(), is(BAHRAIN));
+        assertThat(((Country) ReflectionUtils.findField(Country.class, BAHRAIN).get(null)).getName(), is(BAHRAIN));
+        assertThat(SuperclassOfCountryConstants.CANADA.getName(), is(CANADA));
+        assertThat(((Country) ReflectionUtils.findField(SuperclassOfCountryConstants.class, CANADA).get(null))
                 .getName(), is(CANADA));
-        assertThat(SuperclassOfResolveConstantType.DENMARK.getName(), is(DENMARK));
-        assertThat(((Country) ReflectionUtils.findField(SuperclassOfResolveConstantType.class, DENMARK).get(null))
+        assertThat(SuperclassOfCountryConstants.DENMARK.getName(), is(DENMARK));
+        assertThat(((Country) ReflectionUtils.findField(SuperclassOfCountryConstants.class, DENMARK).get(null))
                 .getName(), is(DENMARK));
         assertThat(NotResolveConstantType.ECUADOR.getName(), is(ECUADOR));
         assertThat(((Country) ReflectionUtils.findField(NotResolveConstantType.class, ECUADOR).get(null)).getName(),
@@ -80,13 +78,7 @@ public class ConstantResolverAspectTests {
                 nullValue());
     }
 
-    @ResolveConstant
-    public static class ResolveConstantType {
-        public static final Country ALGERIA = new Country("DZ");
-        public static final Country BAHRAIN = new Country("BH");
-    }
-
-    public static class SuperclassOfResolveConstantType extends ResolveConstantType {
+    public static class SuperclassOfCountryConstants extends Country {
         public static final Country CANADA = new Country("CA");
         public static final Country DENMARK = new Country("DK");
     }

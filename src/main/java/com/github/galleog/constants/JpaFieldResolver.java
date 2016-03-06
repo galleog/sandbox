@@ -3,6 +3,7 @@ package com.github.galleog.constants;
 import org.apache.commons.lang3.Validate;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Persistable;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +22,7 @@ public class JpaFieldResolver implements FieldResolver {
     private EntityManager em;
 
     @Override
+    @Transactional(readOnly = true)
     @Cacheable(value = CACHE_NAME, key = "#field.declaringClass.name + '#' + #field.name")
     public Persistable<?> resolve(Field field) {
         int mod = field.getModifiers();

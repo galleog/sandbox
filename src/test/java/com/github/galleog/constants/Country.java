@@ -17,8 +17,12 @@ import javax.persistence.Id;
  */
 @Getter
 @Entity
+@ResolveConstant
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Country implements Persistable<String> {
+    public static final Country ALGERIA = new Country("DZ");
+    public static final Country BAHRAIN = new Country("BH");
+
     @Id
     @Column(columnDefinition = "char(2)")
     private String id;
