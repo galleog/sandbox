@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;

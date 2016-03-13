@@ -38,7 +38,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <array>
-                <value>com.github.galleog.constants</value>
+                <value>com.github.galleog.sandbox.constants</value>
             </array>
         </property>
         <property name="jpaProperties">

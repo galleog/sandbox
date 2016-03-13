@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import org.springframework.data.domain.Persistable;
 

@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;

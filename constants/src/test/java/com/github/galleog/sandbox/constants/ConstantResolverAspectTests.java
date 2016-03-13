@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import org.aspectj.lang.Aspects;
 import org.mockito.Mock;

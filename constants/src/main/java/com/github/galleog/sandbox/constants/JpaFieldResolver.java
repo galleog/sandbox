@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import org.apache.commons.lang3.Validate;
 import org.springframework.cache.annotation.Cacheable;

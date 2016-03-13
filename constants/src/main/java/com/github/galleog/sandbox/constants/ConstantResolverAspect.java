@@ -1,4 +1,4 @@
-package com.github.galleog.constants;
+package com.github.galleog.sandbox.constants;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -28,7 +28,7 @@ public class ConstantResolverAspect {
     /**
      * Matches references to any {@code public static final} field annotated with {@link ResolveConstant}.
      */
-    @Pointcut("get(@com.github.galleog.constants.ResolveConstant public static final * *.*)")
+    @Pointcut("get(@com.github.galleog.sandbox.constants.ResolveConstant public static final * *.*)")
     void getPublicStaticFinalResolveConstantField() {
     }
 
@@ -36,7 +36,7 @@ public class ConstantResolverAspect {
      * Matches references to any {@code public static final} field belonging to a class
      * annotated with {@link ResolveConstant}.
      */
-    @Pointcut("get(public static final * (@com.github.galleog.constants.ResolveConstant *).*)")
+    @Pointcut("get(public static final * (@com.github.galleog.sandbox.constants.ResolveConstant *).*)")
     void getAnyPublicStaticFinalFieldOfResolveContstantType() {
     }
 
@@ -64,7 +64,7 @@ public class ConstantResolverAspect {
     /**
      * Resolves a field referenced using Reflection.
      */
-    @Around("getField(field) && !cflow(within(com.github.galleog.constants.ConstantResolverAspect))")
+    @Around("getField(field) && !cflow(within(com.github.galleog.sandbox.constants.ConstantResolverAspect))")
     public Object resolveReflectiveConstant(Field field) {
         return resolver.resolve(field);
     }
