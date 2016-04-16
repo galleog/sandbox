@@ -20,7 +20,7 @@ public abstract class PredefinedPropSet {
     }
 
     /**
-     * Creates a property set instance with the specified parent set and added properties.
+     * Creates a property set instance with the specified parent set and additional properties.
      *
      * @param parentSet  the parent property set
      * @param properties new propeties that must be preserved in JSON along with the parent set
