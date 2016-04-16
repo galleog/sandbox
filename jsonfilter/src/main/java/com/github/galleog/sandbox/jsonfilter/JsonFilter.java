@@ -24,7 +24,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 	...
  * }
  * </pre>
- * </p>
  *
  * @author Oleg Galkin
  * @see com.fasterxml.jackson.databind.ObjectMapper#setFilterProvider(com.fasterxml.jackson.databind.ser.FilterProvider)
