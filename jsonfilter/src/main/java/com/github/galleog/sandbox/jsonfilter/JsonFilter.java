@@ -46,7 +46,7 @@ public @interface JsonFilter {
 
     /**
      * {@link PredefinedPropSet Property sets} that define the properties included in JSON.
-     * Each property set class must have a default constuctor.
+     * Each property set class must have a default constructor.
      */
     Class<? extends PredefinedPropSet>[] propSets() default {};
 }
