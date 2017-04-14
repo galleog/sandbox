@@ -21,7 +21,7 @@ public class MessageSourceBasedNamedEnumTests {
                 {ComplexKeyEnum.EQUAL_SIGN},
                 {ComplexKeyEnum.COLON},
                 {ComplexKeyEnum.UNICODE},
-                // Должны определяться имена у констант из разных классов
+                // names for different enumeration types must be detected
                 {MessageSourceTestEnum.TEST},
                 {MessageSourceTestEnum.SAMPLE}
         };
