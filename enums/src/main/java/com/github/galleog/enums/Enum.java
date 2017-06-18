@@ -1,5 +1,6 @@
 package com.github.galleog.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -105,6 +106,7 @@ public abstract class Enum<T extends Serializable & Comparable<? super T>>
     /**
      * Gets the key of the enumeration value.
      */
+    @JsonValue
     public final T getKey() {
         return key;
     }
