@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.hasJsonPath;
 import static com.jayway.jsonpath.matchers.JsonPathMatchers.hasNoJsonPath;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Tests for enum serialization to JSON.
@@ -23,8 +23,8 @@ public class EnumSerializerTests {
     public void testSerialize() throws Exception {
         TestBean bean = new TestBean(OperationEnum.PLUS, IntegerEnum.TWO);
         String json = objectMapper.writeValueAsString(bean);
-        assertThat(json, hasJsonPath("$.operation", equalTo("Plus")));
-        assertThat(json, hasJsonPath("$.integer", equalTo(2)));
+        assertThat(json, hasJsonPath("$.operation", is("Plus")));
+        assertThat(json, hasJsonPath("$.integer", is(2)));
     }
 
     /**
