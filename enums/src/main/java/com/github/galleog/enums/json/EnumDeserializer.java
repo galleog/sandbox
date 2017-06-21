@@ -30,13 +30,7 @@ public class EnumDeserializer<E extends Enum<?>> extends StdScalarDeserializer<E
         this(null, null);
     }
 
-    /**
-     * Creates an instance of the deserializer.
-     *
-     * @param enumClass the enumeration class
-     * @param keyType   the type of the ksy the enumeration uses
-     */
-    public EnumDeserializer(Class<?> enumClass, JavaType keyType) {
+    private EnumDeserializer(Class<?> enumClass, JavaType keyType) {
         super(enumClass);
         this.keyType = keyType;
     }
@@ -47,7 +41,6 @@ public class EnumDeserializer<E extends Enum<?>> extends StdScalarDeserializer<E
         if (property != null) {
             // get enumeration class
             Class<?> cls = property.getType().getRawClass();
-            ;
             Validate.validState(Enum.class.isAssignableFrom(cls), "Class %s must be subclass of Enum", cls.getName());
 
             JavaType[] types = ctxt.getTypeFactory().findTypeParameters(cls, Enum.class);
